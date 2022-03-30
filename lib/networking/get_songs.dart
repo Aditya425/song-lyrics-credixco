@@ -12,14 +12,16 @@ class GetSongs {
     //print(jsonDecode(tracks.body)["message"]["body"]["track_list"][0]["track"]["track_id"]);
     var body = jsonDecode(tracks.body)["message"]["body"]["track_list"];
     for (int i = 0; i < body.length; i++) {
-      Track track = Track(
-        trackId: body[i]["track"]["track_id"],
-        trackName: body[i]["track"]["track_name"],
-        hasLyrics: body[i]["track"]["has_lyrics"],
-        albumId: body[i]["track"]["album_id"],
-        albumName: body[i]["track"]["album_name"]
-      );
-      trackList.add(track);
+      if (body[i]["track"]["has_lyrics"] == 1) {
+        Track track = Track(
+            trackId: body[i]["track"]["track_id"],
+            trackName: body[i]["track"]["track_name"],
+            hasLyrics: body[i]["track"]["has_lyrics"],
+            albumId: body[i]["track"]["album_id"],
+            albumName: body[i]["track"]["album_name"]
+        );
+        trackList.add(track);
+      }
     }
     return trackList;
   }
